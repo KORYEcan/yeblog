@@ -40,38 +40,8 @@
 </div>
 
 <script>
-    let isUsernameSameCheck = false;
-
-    function changeUsernameState() {
-        document.querySelector("#usernameErrorMsg").innerHTML = "유저네임이 중복체크를 해주세요";
-        isUsernameSameCheck = false;
-    }
-
-    async function sameUsername() {
-        let username = document.querySelector("#username").value;
-        let response = await fetch("/api/user/"+username+"/sameUsername");
-        if(response.status === 200){
-            alert("해당 유저네임을 사용할 수 있습니다");
-            document.querySelector("#usernameErrorMsg").innerHTML = "";
-            isUsernameSameCheck = true;
-        }else{
-            alert("해당 유저네임을 사용할 수 없습니다");
-            isUsernameSameCheck = false;
-        }
-    }
-
     function valid() {
-        let password = document.querySelector("#password").value;
-        let samePassword = document.querySelector("#samePassword").value;
-        if (isUsernameSameCheck === false) {
-            document.querySelector("#usernameErrorMsg").innerHTML = "유저네임 중복체크가 되지 않았습니다";
-            return false;
-        }
-        if (password !== samePassword) {
-            document.querySelector("#passwordErrorMsg").innerHTML = "패스워드가 동일하지 않습니다";
-            document.querySelector("#samePasswordErrorMsg").innerHTML = "패스워드가 동일하지 않습니다";
-            return false;
-        }
+        alert("회원가입 유효성 검사")
         return true;
     }
 </script>
