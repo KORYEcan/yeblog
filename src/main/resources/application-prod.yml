@@ -22,4 +22,4 @@ spring:
     open-in-view: false
 logging:
   level:
-    '[shop.yeit.yeblog]': INFO
+    '[shop.yeblog]': INFO

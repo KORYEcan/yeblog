@@ -13,7 +13,7 @@
                 <input type="password" name="password" class="form-control" placeholder="Enter password" value="1234">
             </div>
 
-            <button type="submit" class="btn btn-primary">로그인</button>
+            <button class="btn btn-primary">로그인</button>
         </form>
 
     </div>

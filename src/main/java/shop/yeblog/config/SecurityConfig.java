@@ -32,12 +32,14 @@ public class SecurityConfig {
    //3.Form 로그인 설정
     http.formLogin()
         .loginPage("/loginForm")
-        .successHandler(((request, response, authentication) -> {
+        .loginProcessingUrl("/login")   //MyUserDetailsService가 호출  , Post , x-www-form-urlencode
+        .successHandler((request, response, authentication) -> {
          log.debug("디버그 : 로그인 성공 ");
-        }))
+         response.sendRedirect("/");
+        })
         .failureHandler(((request, response, exception) -> {
           log.debug("디버그 : 로그인 실패 :  "+exception.getMessage());
-
+          response.sendRedirect("/loginForm");
         }));
     //3. 인증, 권한 필터 설정
    http.authorizeRequests(authorize -> authorize.antMatchers("/s/**").authenticated() ///주소가  s로 시작하면 로그인안될시 접속불가

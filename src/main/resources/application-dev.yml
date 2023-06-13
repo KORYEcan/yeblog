@@ -31,8 +31,6 @@ spring:
     ansi:
       enabled: always # vscode console color
 logging:
-    level:
-       '[shop.yeit.yeblog]': DEBUG
-       '[org.hibernate.type]': TRACE
-
-
+  level:
+    '[shop.yeblog]': DEBUG
+    '[org.hibernate.type]' : TRACE
