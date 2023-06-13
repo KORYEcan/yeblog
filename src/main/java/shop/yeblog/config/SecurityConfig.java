@@ -24,7 +24,12 @@ public class SecurityConfig {
     //1. CSRF 해제  --> postman을 사용못하기 떄문에 마지막에 필요하면 이코드를 지우면 됨
    http.csrf().disable();
 
-   //2.Form 로그인 설정
+
+   //2. frame option 해제
+    http.headers().frameOptions().disable();
+
+
+   //3.Form 로그인 설정
     http.formLogin()
         .loginPage("/loginForm")
         .successHandler(((request, response, authentication) -> {
