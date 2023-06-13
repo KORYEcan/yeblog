@@ -19,7 +19,7 @@ public class Board {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne (fetch = FetchType.LAZY)
   private User user;
 
 
