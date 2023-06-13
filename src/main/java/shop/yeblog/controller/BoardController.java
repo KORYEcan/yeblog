@@ -20,5 +20,10 @@ public class BoardController {
     return "board/main";
   }
 
+  @GetMapping("/s/board/saveForm")  // /s/ 인증되어야지 들어갈수 있도록 만들기
+  public String saveForm(){
+  return "board/saveForm";
+  }
+
 
 }
