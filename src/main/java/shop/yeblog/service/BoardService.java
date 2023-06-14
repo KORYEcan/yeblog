@@ -44,9 +44,9 @@ public class BoardService {
   }
 
   @Transactional(readOnly = true)  //변경감지 X , 고립성(repeatable read)
-  public Page<Board> showContent(Pageable pageable) {  //CSR은 DTO로 변경해서 돌려줘야 함.
+  public Page<Board> showContent(int  page) {  //CSR은 DTO로 변경해서 돌려줘야 함.
     // 1. 모든 전략은 Lazy : 이유는 필요할때만 가져오려고
     // 2. 필요할때 는 직접 fetch join을  사용해라
-    return boardQueryRepository.findAll(pageable);
+    return boardQueryRepository.findAll(page);
   }
 }

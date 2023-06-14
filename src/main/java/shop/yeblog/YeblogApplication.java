@@ -12,48 +12,29 @@ import shop.yeblog.model.board.BoardRepository;
 import shop.yeblog.model.user.User;
 import shop.yeblog.model.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
-public class YeblogApplication {
+public class YeblogApplication extends DummyEntity {
 
   @Profile("dev")
   @Bean    //프로젝트 시작될때 들어가는 더미 데이터: 개발 시간 줄여줄려고!
   CommandLineRunner init(UserRepository userRepository, BoardRepository boardRepository, BCryptPasswordEncoder passwordEncoder){
     return args -> {
-      User ssar= User.builder()
-          .username("ssar")
-          .password(passwordEncoder.encode("1234"))
-          .email("ssar@nate.com")
-          .role("USER")
-          .profile("person.png")
-          .status(true)
-          .build();
+      User ssar= newUser("ssar",passwordEncoder);
+      User cos= newUser("cos",passwordEncoder);
+      userRepository.saveAll(Arrays.asList(ssar,cos));
 
-      User cos = User.builder()
-          .username("cos")
-          .password(passwordEncoder.encode("7890"))
-          .email("cos@nate.com")
-          .role("USER")
-          .profile("person.png")
-          .status(true)
-          .build();
-     userRepository.saveAll(Arrays.asList(ssar,cos));
-
-     Board b1 = Board.builder()
-         .title("제목1")
-         .content("내용1")
-         .user(ssar)
-         .thumbnail("/upload/person.png")
-                .build();
-     Board b2 = Board.builder()
-         .title("제목2")
-         .content("내용2")
-         .user(ssar)
-         .thumbnail("/upload/person.png")
-                .build();
-boardRepository.saveAll(Arrays.asList(b1,b2));
-
+      List<Board> boardList = new ArrayList<>();
+      for (int i= 1; i< 11 ; i++){
+        boardList.add(newBoard("제목"+i,ssar));
+      }
+      for (int i= 11; i< 21 ; i++){
+        boardList.add(newBoard("제목"+i,cos));
+      }
+      boardRepository.saveAll(boardList);
     };
   }
 
