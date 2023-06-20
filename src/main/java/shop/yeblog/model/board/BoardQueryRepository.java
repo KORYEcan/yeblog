@@ -2,6 +2,7 @@ package shop.yeblog.model.board;
 
 
 import lombok.RequiredArgsConstructor;
+import org.qlrm.mapper.JpaResultMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,6 +30,26 @@ public class BoardQueryRepository {
     Long totalCount = em.createQuery("select count(b) from Board b", Long.class).getSingleResult();
 
     return new PageImpl<>(boardListPS, PageRequest.of(page,SIZE ), totalCount)  ;
+  }
+
+  public void subQuery() {
+    //엄청난 긴 쿼리를 짤때는 결국 QueryDSL 사용하는게 좋음
+    String sql= "select id,title,content,(select count(id) from love)like_count, 1 n1, 2 n2, 3 n3 from board where id= 1";
+    Query query= em.createNativeQuery(sql);
+    JpaResultMapper result= new JpaResultMapper();
+    MyDTO myDTO= result.uniqueResult(query,MyDTO.class);
+  }
+
+
+  public static class MyDTO{
+    private int id;
+    private String title;
+    private String content;
+    private int likeCount;
+    private int n1;
+    private int n2;
+    private int n3;
+
   }
 
 }

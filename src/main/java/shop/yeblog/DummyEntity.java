@@ -23,7 +23,7 @@ public class DummyEntity {
         .title(title)
         .content(title+"에 대한 내용입니다.")
         .user(user)
-        .thumbnail("/upload/person.png")
+        .thumbnail("/image/think.png")
         .build();
   }
 

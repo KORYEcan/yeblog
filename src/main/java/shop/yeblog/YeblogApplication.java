@@ -28,10 +28,10 @@ public class YeblogApplication extends DummyEntity {
       userRepository.saveAll(Arrays.asList(ssar,cos));
 
       List<Board> boardList = new ArrayList<>();
-      for (int i= 1; i< 11 ; i++){
+      for (int i= 1; i< 6 ; i++){
         boardList.add(newBoard("제목"+i,ssar));
       }
-      for (int i= 11; i< 21 ; i++){
+      for (int i= 7; i< 12 ; i++){
         boardList.add(newBoard("제목"+i,cos));
       }
       boardRepository.saveAll(boardList);

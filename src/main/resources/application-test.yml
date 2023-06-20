@@ -1,0 +1,40 @@
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+  port: 8080
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100 # in query
+    open-in-view: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  output:
+    ansi:
+      enabled: always # vscode console color
+
+logging:
+  level:
+    '[shop.yeblog]': DEBUG
+    '[org.hibernate.type]' : TRACE

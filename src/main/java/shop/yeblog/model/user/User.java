@@ -1,6 +1,7 @@
 package shop.yeblog.model.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +26,10 @@ public class User {
   private String role;      //USER(고객)
   private String profile;  //유저 프로필 사진의 경로
   private Boolean status;
+
+  @JsonIgnore
   private LocalDateTime createAt;
+  @JsonIgnore
   private LocalDateTime updateAt;
 
   //회원 수정

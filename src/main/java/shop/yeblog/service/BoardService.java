@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.yeblog.core.exception.ssr.Exception400;
+import shop.yeblog.core.util.MyParseUtil;
 import shop.yeblog.dto.board.BoardRequest;
 import shop.yeblog.model.board.Board;
 import shop.yeblog.model.board.BoardQueryRepository;
@@ -34,8 +36,12 @@ public class BoardService {
       User userPS= userRepository.findById(userId).orElseThrow(
           ()-> new RuntimeException("유저를 찾을 수 없습니다.")
       );
-      //2. 게시글 쓰기
-      boardRepository.save(saveInDTO.toEntity(userPS));
+
+      //2. 썸네일 만들기
+      String thumbnail= MyParseUtil.getThumbnail(saveInDTO.getContent());
+
+      //3. 게시글 쓰기
+      boardRepository.save(saveInDTO.toEntity(userPS,thumbnail));
     }catch (Exception e){
 
       throw new RuntimeException("글쓰기 실패 :"+ e.getMessage());
@@ -48,5 +54,17 @@ public class BoardService {
     // 1. 모든 전략은 Lazy : 이유는 필요할때만 가져오려고
     // 2. 필요할때 는 직접 fetch join을  사용해라
     return boardQueryRepository.findAll(page);
+  }
+
+
+  public Board showDetail(Long id ){
+    Board boardPS= boardRepository.findByIdFetchUser(id).orElseThrow(
+        () -> new Exception400("id","게시글 아이디를 찾을 수 없습니다.")
+             //1. lazy loading 하는 것보다 join fetch하는 것이 좋다
+             //2 . 왜 lazy를 쓰냐면, 쓸데 없는 조인 쿼리를 줄이기 위해서이다.
+             //3. 사실 @ManytoOne은 Eager 전략을 쓰는 것이 좋다.
+             //board.PS.getUser().getUsername();
+    );
+    return boardPS;
   }
 }

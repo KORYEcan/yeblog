@@ -1,6 +1,7 @@
 package shop.yeblog.model.board;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import shop.yeblog.model.user.User;
 
@@ -29,7 +30,9 @@ public class Board {
   private String content;
   @Lob  //4GB
   private String thumbnail;
+  @JsonIgnore
   private LocalDateTime createdAt;
+  @JsonIgnore
   private LocalDateTime updatedAt;
 
 

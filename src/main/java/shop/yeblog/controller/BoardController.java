@@ -11,10 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import shop.yeblog.core.auth.MyUserDetails;
 import shop.yeblog.dto.board.BoardRequest;
 import shop.yeblog.model.board.Board;
@@ -44,6 +41,13 @@ public class BoardController {
   public String save(BoardRequest.SaveInDTO saveInDTO, @AuthenticationPrincipal MyUserDetails myUserDetails){
     boardService.write(saveInDTO, myUserDetails.getUser().getId());
     return "redirect:/";
+  }
+
+  @GetMapping("/board/{id}")
+  public String detail(@PathVariable Long id, Model model){
+    Board board= boardService.showDetail(id);
+    model.addAttribute("board",board);
+    return "board/detail";   //RequestDispatcher => request 덮어쓰기 기술
   }
 
 
