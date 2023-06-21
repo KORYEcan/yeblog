@@ -54,7 +54,7 @@
             </ul>
             <c:if test="${sessionUser != null}">
                 <div>
-                    <a href="/s/user/${sessionUser.id}/updateProfileForm"><img src="/upload/profile.png"
+                    <a href="/s/user/${sessionUser.id}/updateProfileForm"><img src="/upload/${sessionUser.profile}"
                                                                                 style="width: 35px;"
                                                                                 class="rounded-circle"
                                                                                 alt="Cinque Terre"></a>
