@@ -13,7 +13,7 @@ public class DummyEntity {
         .password(passwordEncoder.encode("1234"))
         .email(username+"@nate.com")
         .role("USER")
-        .profile("person.png")
+        .profile("profile.png")
         .build();
   }
 

@@ -23,3 +23,5 @@ spring:
 logging:
   level:
     '[shop.yeblog]': INFO
+  file:
+    path: /home/ubuntu/upload/
