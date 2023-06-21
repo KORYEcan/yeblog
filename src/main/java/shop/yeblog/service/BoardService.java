@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.yeblog.core.exception.ssr.Exception400;
+import shop.yeblog.core.exception.ssr.Exception403;
+import shop.yeblog.core.exception.ssr.Exception500;
 import shop.yeblog.core.util.MyParseUtil;
 import shop.yeblog.dto.board.BoardRequest;
 import shop.yeblog.model.board.Board;
@@ -75,5 +77,20 @@ public class BoardService {
              //board.PS.getUser().getUsername();
     );
     return boardPS;
+  }
+
+  @Transactional
+  public void deleteContent(Long id, Long userId) {
+    Board boardPS=boardRepository.findByIdFetchUser(id).orElseThrow(
+        () -> new Exception400("id", "게시글 아이디를 찾을 수 없습니다.")
+    );
+    if (boardPS.getUser().getId() != userId){
+      throw new Exception403("권한이 없습니다.");
+    }
+    try{
+      boardRepository.delete(boardPS);
+    }catch (Exception e){
+      throw new Exception500("게시글 삭제 실패:"+ e.getMessage());
+    }
   }
 }

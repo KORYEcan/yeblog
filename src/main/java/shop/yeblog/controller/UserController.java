@@ -50,7 +50,6 @@ public class UserController {
     return "user/loginForm";
   }
 
-
   @GetMapping("/s/user/{id}/updateProfileForm")
   public String profileUpdateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails){
     //1.권한 체크
