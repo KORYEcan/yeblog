@@ -50,11 +50,20 @@ public class BoardService {
   }
 
   @Transactional(readOnly = true)  //변경감지 X , 고립성(repeatable read)
-  public Page<Board> showContent(int  page) {  //CSR은 DTO로 변경해서 돌려줘야 함.
+  public Page<Board> showContent(int  page,String keyword) {  //CSR은 DTO로 변경해서 돌려줘야 함.
     // 1. 모든 전략은 Lazy : 이유는 필요할때만 가져오려고
     // 2. 필요할때 는 직접 fetch join을  사용해라
-    return boardQueryRepository.findAll(page);
-  }
+   /*
+    isEmpty() -> 문자열의 길이가 0인걸 검사
+    isBlank()-> 문자열이 비어있거나 ,공백 문자열(whitespace-only string)인지 검사
+   * */
+    if (keyword.isBlank()){
+      return boardQueryRepository.findAll(page);
+    }else{
+     Page<Board> boardPGPS= boardQueryRepository.findAllByKeyword(page,keyword);
+     return boardPGPS;
+    }
+  }   //openinview= false(리턴되고 나면 PS를 뺴도됨)
 
 
   public Board showDetail(Long id ){
