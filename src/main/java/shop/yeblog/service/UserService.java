@@ -17,6 +17,7 @@ import shop.yeblog.model.user.UserRepository;
 
 import java.util.Optional;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -70,5 +71,11 @@ public class UserService {
     if (userOP.isPresent()){
       throw  new ExceptionApi400("username","유저네임이 중복되었어요");   //Exception400을 하지않는 이유? -> JSON을 응답해줘야 되긴때문에
     }
+  }
+
+  public User showUserInfo(Long id) {
+ User userPS=userRepository.findById(id)
+     .orElseThrow(() -> new Exception400("id","해당 유저가 존재하지 않습니다."));
+ return userPS;
   }
 }

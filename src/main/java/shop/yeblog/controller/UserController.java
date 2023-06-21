@@ -2,6 +2,7 @@ package shop.yeblog.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,20 @@ public class UserController {
   private final UserService userService;
   private final HttpSession session;
 
+
+
+
+  @GetMapping("/s/user/{id}/updateForm")
+  public String updateForm(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails myUserDetails){
+    //1.권한 체크
+    if (id != myUserDetails.getUser().getId()){
+      throw new Exception403("권한이 없습니다.");
+    }
+    //2. 회원 정보 조회
+    User userPS= userService.showUserInfo(id);
+    model.addAttribute("user", userPS);
+    return "user/updateForm";
+  }
 
   // 인증이 되지 않은 상태에서 인증과 관련된 주소는 앞에 엔티티는 적지않는다.
   // write (post):  /리소스/식별자(pk,uk)/save or delete or update
