@@ -48,7 +48,11 @@
             <input type="file" class="form-control" id="profile" name="profile" onchange="chooseImage(this)">
         </div>
         <button class="btn btn-primary">사진변경</button>
+
     </form>
+
+
+
 </div>
 
 <script>

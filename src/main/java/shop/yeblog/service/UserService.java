@@ -1,7 +1,6 @@
 package shop.yeblog.service;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.bcel.BcelAnnotation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,9 @@ public class UserService {
 
    @Value("${file.path}")
    private String uploadFolder;
+
+
+
 
   // insert, update, delete -> try catch  처리
   @Transactional
@@ -77,5 +79,27 @@ public class UserService {
  User userPS=userRepository.findById(id)
      .orElseThrow(() -> new Exception400("id","해당 유저가 존재하지 않습니다."));
  return userPS;
+  }
+
+
+  @Transactional
+  public User updateUser(UserRequest.JoinInDTO joinInDTO, Long id, String password, String email) {
+    //수정시에는 영속성 컨텍스트 User 오브젝트를 영속화시키고 ,영속화된 User 를 수정
+    //select를 해서 User오브젝트를 DB로 부터 가져오는 이유는 영속화를 하기 위해서!!
+    //영속화된 오브젝트를 변경하면 자동으로 DB에 Update문을 날려줌
+    User userPS= userRepository.findById(id)
+        .orElseThrow(()-> new Exception400("id","해당 유저가 존재하지 않습니다."));
+    try{
+      //1. 수정된 패스워드 암호화
+      joinInDTO.setPassword(passwordEncoder.encode(password));
+      joinInDTO.setEmail(email);
+      //2. DB에 수정된 비번과 이메일 저장
+      User updateUser= joinInDTO.toEntity();
+      userPS.update(updateUser.getPassword(),updateUser.getEmail());
+      userRepository.saveAndFlush(updateUser);
+      return userPS;
+    }catch (Exception e){
+      throw new Exception500("회원정보 변경 실패:"+ e.getMessage());
+    }
   }
 }

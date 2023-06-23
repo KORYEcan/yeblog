@@ -10,11 +10,12 @@
             </div>
 
             <div class="form-group mb-2">
-                <input type="password" name="password" class="form-control" placeholder="Enter password" value="${user.password}">
+                <input type="password" name="password" class="form-control" placeholder="Enter password">
             </div>
 
             <div class="form-group mb-2">
-                <input type="email" name="email" class="form-control" placeholder="Enter email" value="${user.email}">
+                <input type="email" name="email" class="form-control" placeholder="Enter email" value="${user.email}"
+                       id="email" maxlength="50" required>
             </div>
 
             <button class="btn btn-primary">회원수정</button>
@@ -22,5 +23,6 @@
 
     </div>
 </div>
+
 
 <%@ include file="../layout/footer.jsp" %>

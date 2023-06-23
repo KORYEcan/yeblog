@@ -20,7 +20,7 @@ public class UserRequest {
 
     public User toEntity(){
       return User.builder()
-          .username(username)
+          .username(this.username)
           .password(password)
           .email(email)
           .role("USER")   //enum 사용해도 됨

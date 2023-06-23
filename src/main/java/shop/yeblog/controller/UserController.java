@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import shop.yeblog.core.auth.MyUserDetails;
 import shop.yeblog.core.exception.ssr.Exception400;
@@ -45,19 +46,36 @@ public class UserController {
     return "user/updateForm";
   }
 
+  @PostMapping("/s/user/{id}/update")
+  public String updateUser(@PathVariable Long id ,@AuthenticationPrincipal MyUserDetails myUserDetails
+      ,UserRequest.JoinInDTO joinDTO,
+      @RequestParam("password")String password,
+      @RequestParam("email") String email
+  ){
+    //1.권한 체크
+    if (id != myUserDetails.getUser().getId()){
+      throw new Exception403("권한이 없습니다.");
+    }
+    //수정된 정보를 DB에 저장 또는 업데이트하는 로직은 서비스단으로
+   User userPS = userService.updateUser(joinDTO,id,password,email);
+
+    //4.세션 동기화
+    myUserDetails.setUser(userPS);
+    session.setAttribute("sessionUser",userPS);
+
+    return "redirect:/user/updateForm";
+  }
+
+
   // 인증이 되지 않은 상태에서 인증과 관련된 주소는 앞에 엔티티는 적지않는다.
   // write (post):  /리소스/식별자(pk,uk)/save or delete or update
   // read (get) : /리소스/식별자(pk,uk)
+
   @PostMapping("/join")
   public String join(@Valid UserRequest.JoinInDTO joinInDTO, Errors errors){   // x-www-form-urlencoded   //서비스에게 다 책임울 전가하면 된다.
     //username 검증!! 왜냐 POSTMAN으로 요청할수있으니깐
     userService.signUp(joinInDTO);
     return "redirect:/loginForm";   //status code 301
-  }
-
-  @GetMapping("/joinForm")
-  public String joinForm(){
-    return "user/joinForm";
   }
 
   @GetMapping("/loginForm")
@@ -74,6 +92,11 @@ public class UserController {
     User userPS= userService.showProfile(id);
     model.addAttribute("user",userPS);
     return "user/profileUpdateForm";   //ViewResovler
+  }
+
+  @GetMapping("/joinForm")
+  public String joinForm(){
+    return "user/joinForm";
   }
 
   @PostMapping("/s/user/{id}/updateProfile")

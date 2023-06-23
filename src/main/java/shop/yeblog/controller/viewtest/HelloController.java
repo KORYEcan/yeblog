@@ -3,6 +3,7 @@ package shop.yeblog.controller.viewtest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/hello")
@@ -47,5 +48,10 @@ public class HelloController {
     public String profileUpdateForm(){
         return "user/profileUpdateForm";
     }
+
+    @GetMapping("/user/mypage")
+    public String mypageForm(){
+
+        return "/user/mypage";}
 
 }

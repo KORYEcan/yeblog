@@ -20,8 +20,8 @@ public class Board {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne (fetch = FetchType.LAZY)
-  private User user;
+  @ManyToOne (fetch = FetchType.LAZY)   //Board = Many , User= One  한명의 유저는 여러 게시글을 쓸수있음/ OneToOne은 유저는 한개 게시글밖에 못씀
+  private User user;   //DB는 object를 저장할수 없음, FK 자바는 오브젝트를 저장할수 있다.
 
 
 
