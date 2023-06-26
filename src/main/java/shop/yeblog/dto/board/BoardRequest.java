@@ -22,4 +22,9 @@ public class BoardRequest {
            .build();
     }
   }
+  @Getter @Setter
+  public static class UpdateInDTO{
+    private String title;
+    private String content;
+  }
 }

@@ -92,8 +92,6 @@ public class UserService {
       updateInDTO.setPassword(passwordEncoder.encode(updateInDTO.getPassword()));
       userPS.update(updateInDTO.getPassword(), updateInDTO.getEmail());
       //2. DB에 수정된 비번과 이메일 저장
-//      userRepository.updateUserCredentials();
-        userRepository.save(userPS);
       return userPS;
     }catch (Exception e){
       throw new Exception500("회원정보 변경 실패:"+ e.getMessage());

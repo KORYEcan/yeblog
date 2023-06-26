@@ -93,4 +93,25 @@ public class BoardService {
       throw new Exception500("게시글 삭제 실패:"+ e.getMessage());
     }
   }
+
+
+  @Transactional
+  public void updateContent(BoardRequest.UpdateInDTO updateInDTO, Long id ){
+
+    try{
+      //1. 유저 존재 확인
+      User userPS= userRepository.findById(id).orElseThrow(
+              ()-> new RuntimeException("유저를 찾을 수 없습니다.")
+      );
+
+      //2. 썸네일 만들기
+      String thumbnail= MyParseUtil.getThumbnail(updateInDTO.getContent());
+
+      //3. 게시글 쓰기
+      boardRepository.save(updateInDTO.toEntity(userPS,thumbnail));
+    }catch (Exception e){
+
+      throw new RuntimeException("글쓰기 실패 :"+ e.getMessage());
+    }
+  }
 }

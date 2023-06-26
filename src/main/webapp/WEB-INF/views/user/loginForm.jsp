@@ -6,7 +6,7 @@
     <div class="container">
         <form action="/login" method="post">
             <div class="form-group mb-2">
-                <input type="text" name="username" class="form-control" placeholder="Enter username" value="ssar">
+                <input type="text" name="username" class="form-control" placeholder="Enter username" value="yeit">
             </div>
 
             <div class="form-group mb-2">

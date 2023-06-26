@@ -23,16 +23,16 @@ public class YeblogApplication extends DummyEntity {
   @Bean    //프로젝트 시작될때 들어가는 더미 데이터: 개발 시간 줄여줄려고!
   CommandLineRunner init(UserRepository userRepository, BoardRepository boardRepository, BCryptPasswordEncoder passwordEncoder){
     return args -> {
-      User ssar= newUser("ssar",passwordEncoder);
-      User cos= newUser("cos",passwordEncoder);
-      userRepository.saveAll(Arrays.asList(ssar,cos));
+      User yeit= newUser("yeit",passwordEncoder);
+      User sos= newUser("sos",passwordEncoder);
+      userRepository.saveAll(Arrays.asList(yeit,sos));
 
       List<Board> boardList = new ArrayList<>();
       for (int i= 1; i< 7 ; i++){
-        boardList.add(newBoard("제목"+i,ssar));
+        boardList.add(newBoard("제목"+i,yeit));
       }
       for (int i= 7; i< 12 ; i++){
-        boardList.add(newBoard("제목"+i,cos));
+        boardList.add(newBoard("제목"+i,sos));
       }
       boardRepository.saveAll(boardList);
     };

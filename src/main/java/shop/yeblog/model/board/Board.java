@@ -39,6 +39,8 @@ public class Board {
   private LocalDateTime updatedAt;
 
 
+  public void update(String )
+
   @PrePersist
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
