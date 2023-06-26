@@ -5,19 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import shop.yeblog.model.board.Board;
 import shop.yeblog.model.user.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "reply_tb")
+@ Table(name = "reply_tb")
 @Entity
 public class Reply {
 

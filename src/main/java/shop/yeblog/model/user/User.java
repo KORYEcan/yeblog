@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name="user_tb")
 @Entity     //Table화 시키려면 , User클래스가  MySQL에 테이블이 생성이 됨
-public class User {
+public class  User {
 
   @Id   //PK(Primary Key)
   @GeneratedValue(strategy = GenerationType.IDENTITY)    // 프로젝트에서 연결된 DB의 넘버링 전략을 따라감
@@ -25,7 +25,9 @@ public class User {
   private String password;
   @Column(length = 50)
   private String email;
-  private String role;      //  Enum을 쓰기 / admin,USER(고객),manager
+
+//  @Enumerated(EnumType.STRING)
+  private String role;      //  Enum을 쓰기 / admin,USER(고객)
   private String profile;  //유저 프로필 사진의 경로
   private Boolean status;
 

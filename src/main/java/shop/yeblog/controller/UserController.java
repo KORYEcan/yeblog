@@ -8,14 +8,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shop.yeblog.core.auth.MyUserDetails;
 import shop.yeblog.core.exception.ssr.Exception400;
 import shop.yeblog.core.exception.ssr.Exception403;
+import shop.yeblog.core.util.Script;
 import shop.yeblog.dto.user.UserRequest;
 import shop.yeblog.model.user.User;
 import shop.yeblog.service.UserService;
@@ -47,23 +45,24 @@ public class UserController {
   }
 
   @PostMapping("/s/user/{id}/update")
-  public String updateUser(@PathVariable Long id ,@AuthenticationPrincipal MyUserDetails myUserDetails
-      ,UserRequest.JoinInDTO joinDTO,
-      @RequestParam("password")String password,
-      @RequestParam("email") String email
+  public @ResponseBody String updateUser(
+          @PathVariable Long id,
+          @Valid UserRequest.UpdateInDTO updateInDTO,
+          Errors errors,
+          @AuthenticationPrincipal MyUserDetails myUserDetails
   ){
     //1.권한 체크
     if (id != myUserDetails.getUser().getId()){
       throw new Exception403("권한이 없습니다.");
     }
     //수정된 정보를 DB에 저장 또는 업데이트하는 로직은 서비스단으로
-   User userPS = userService.updateUser(joinDTO,id,password,email);
+   User user = userService.updateUser(id,updateInDTO);
 
     //4.세션 동기화
-    myUserDetails.setUser(userPS);
-    session.setAttribute("sessionUser",userPS);
+    myUserDetails.setUser(user);
+    session.setAttribute("sessionUser",user);
 
-    return "redirect:/user/updateForm";
+    return Script.href("회원정보 수정 성공","/");
   }
 
 

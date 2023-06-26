@@ -2,6 +2,7 @@ package shop.yeblog.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import shop.yeblog.model.user.RolyType;
 import shop.yeblog.model.user.User;
 
 import javax.validation.constraints.NotEmpty;
@@ -28,5 +29,12 @@ public class UserRequest {
           .profile("person.png")  //profile 사진 관련
           .build();
     }
+  }
+  @Getter @Setter
+  public static  class UpdateInDTO{
+    @NotEmpty
+    private String password;
+    @NotEmpty
+    private String email;
   }
 }
