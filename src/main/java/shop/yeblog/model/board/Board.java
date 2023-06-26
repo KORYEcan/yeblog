@@ -39,7 +39,11 @@ public class Board {
   private LocalDateTime updatedAt;
 
 
-  public void update(String )
+  public void update(String title, String content, String thumbnail){
+    this.title=title;
+    this.content=content;
+    this.thumbnail=thumbnail;
+  }
 
   @PrePersist
   protected void onCreate() {

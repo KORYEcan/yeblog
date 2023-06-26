@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import shop.yeblog.core.auth.MyUserDetails;
+import shop.yeblog.core.exception.ssr.Exception403;
 import shop.yeblog.core.util.Script;
 import shop.yeblog.dto.board.BoardRequest;
 import shop.yeblog.model.board.Board;
@@ -65,15 +66,20 @@ public class BoardController {
 
 
   @GetMapping("/s/board/{id}/updateForm")
-  public String updateForm(){ return "board/updateForm";}
+  public String updateForm(@PathVariable Long id , Model model){
+   Board board =boardService.showDetail(id);
+   model.addAttribute("board",board);
+    return "board/updateForm";}
 
 
   @PostMapping("/s/board/{id}/update")
-  public @ResponseBody String updateContent(BoardRequest.UpdateInDTO updateInDTO, @AuthenticationPrincipal MyUserDetails myUserDetails ){
-   boardService.updateContent(updateInDTO, myUserDetails.getUser().getId());
-    return Script.href("글 수정 완료되었습니다", "/");
+  public String updateForm(@PathVariable Long id,
+                           BoardRequest.UpdateInDTO updateInDTO,
+                           @AuthenticationPrincipal MyUserDetails myUserDetails
+  ){
+
+ boardService.updateContent(id,updateInDTO,myUserDetails.getUser().getId());
+    return "redirect:/";
   }
-
-
 
 }
