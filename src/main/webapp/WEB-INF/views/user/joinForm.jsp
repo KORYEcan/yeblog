@@ -72,7 +72,7 @@
             document.querySelector("#samePasswordErrorMsg").innerHTML = "패스워드가 동일하지 않습니다.";
             return false;
         }
-        alert("회원가입 유효성 검사")
+        alert("회원가입 완료")
         return true;
     }
 </script>
