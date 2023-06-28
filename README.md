@@ -6,26 +6,34 @@
 
 ## 주요 기능
 
-- CRUD 기본 기능: 데이터의 생성, 읽기, 수정, 삭제 기능을 구현하여 사용자가 블로그 글을 작성하고 관리할 수 있습니다.
-- 고급 기능 추가: CRUD 기능 외에도 다양한 고급 기능을 추가하여 사용자에게 향상된 서비스 경험을 제공합니다.
+- 기본 기능: 회원가입, 로그인, 게시물 작성,수정 ,삭제
+- 고급 기능 추가 예정: CRUD 기능 외에도 다양한 고급 기능을 추가하여 사용자에게 향상된 서비스 경험을 제공합니다.
 
 
 ## ERD 설계도
+![image](https://github.com/KORYEcan/corepractice2/assets/79830029/73000b84-8144-4bb4-ad1a-950077a4f941)
 
 ## 1. 기술스택
-- JDK 11
-- Springboot 2.X 버전
-- JPA
-- H2 인메모리 디비 - 방언 MySQL
-- JSP
-- Security
-- AJAX
-- JSoup
-- 부트스트랩
-## 2. 요구사항
-> HTTP 메서드를 POST와 GET만 사용한다.
-#### 기능구현 
-#####회원가입 & 로그인
-![회원가입](https://github.com/KORYEcan/corepractice2/assets/79830029/bc59ff9b-a9bf-45ed-b9bf-ca524cd13f80)
+![image](https://github.com/KORYEcan/hello/assets/79830029/c54856bf-cb4d-4602-a973-bc8814b8b9be)
 
+## 2. 기능구현
+회원가입 & 로그인
+![최종본 회원가입 및 로그인](https://github.com/KORYEcan/corepractice2/assets/79830029/794a3ba5-b29a-47a3-b61a-0f0111815008)
+
+회원정보 수정 
+![최종본 회원 정보 수정](https://github.com/KORYEcan/corepractice2/assets/79830029/dc9da8ef-257d-485b-9097-f4fd9cf4c67b)
+
+마이페이지 사진 업로드
+![최종본 마이페이지 사진업로드](https://github.com/KORYEcan/corepractice2/assets/79830029/f5418b00-c2f1-4021-8deb-3e722c0d201e)
+게시글 등록, 수정 , 삭제
+![최종본 게시글 등록 ,수정 ,삭제](https://github.com/KORYEcan/corepractice2/assets/79830029/9ddca3d3-7af8-4a3d-be6a-8c5e84718f5f)
+검색
+![최종본 검색기능](https://github.com/KORYEcan/corepractice2/assets/79830029/38fecfb7-e038-46cd-b495-b034554c842b)
+SNS 공유 기능 
+![최종본 SNS 공유기능 ](https://github.com/KORYEcan/corepractice2/assets/79830029/f7a87e2e-2c49-4f33-aca6-16ccf379cf66)
+
+## 참고 사이트 
+
+#### https://www.w3schools.com/bootstrap5/index.php
+#### https://summernote.org/
 
