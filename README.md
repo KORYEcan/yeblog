@@ -23,7 +23,7 @@
 ## 2. 요구사항
 > HTTP 메서드를 POST와 GET만 사용한다.
 #### 요구사항 1단계
-![회원가입_AdobeExpress](https://github.com/KORYEcan/corepractice2/assets/79830029/b4e33ba9-1752-429b-b8bb-8fe6e6f14559)
+![회원가입](https://github.com/KORYEcan/corepractice2/assets/79830029/bc59ff9b-a9bf-45ed-b9bf-ca524cd13f80)
 - 회원가입(**_완_**) 1
 - 로그인(Security 적용) (완)
 - 글쓰기(썸머 노트 적용) (완)
