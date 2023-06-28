@@ -31,6 +31,7 @@ public class  User {
   private String profile;  //유저 프로필 사진의 경로
   private Boolean status;
 
+
   @JsonIgnore
   private LocalDateTime createAt;
   @JsonIgnore

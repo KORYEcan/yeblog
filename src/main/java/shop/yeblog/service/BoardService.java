@@ -10,11 +10,16 @@ import shop.yeblog.core.exception.ssr.Exception403;
 import shop.yeblog.core.exception.ssr.Exception500;
 import shop.yeblog.core.util.MyParseUtil;
 import shop.yeblog.dto.board.BoardRequest;
+import shop.yeblog.dto.board.BoardResponse;
+import shop.yeblog.dto.reply.ReplyResponse;
 import shop.yeblog.model.board.Board;
 import shop.yeblog.model.board.BoardQueryRepository;
 import shop.yeblog.model.board.BoardRepository;
 import shop.yeblog.model.user.User;
 import shop.yeblog.model.user.UserRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -64,8 +69,8 @@ public class BoardService {
     }
   }   //openinview= false(리턴되고 나면 PS를 뺴도됨)
 
-
-  public Board showDetail(Long id) {
+//ToDO
+/*  public BoardResponse showDetail(Long id , User user) {
     Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
             () -> new Exception400("id", "게시글 아이디를 찾을 수 없습니다.")
             //1. lazy loading 하는 것보다 join fetch하는 것이 좋다
@@ -73,8 +78,33 @@ public class BoardService {
             //3. 사실 @ManytoOne은 Eager 전략을 쓰는 것이 좋다.
             //board.PS.getUser().getUsername();
     );
-    return boardPS;
-  }
+    List<ReplyResponse> replyList= boardPS.getReplyList().stream()
+        .map(reply -> ReplyResponse.builder()
+            .id(reply.getId())
+            .comment(reply.getContent())
+            .username(reply.getUser().getUsername())
+            .build())
+        .collect(Collectors.toList());
+
+
+    return BoardResponse.builder()
+        .id(boardPS.getId())
+        .title(boardPS.getTitle())
+        .content(boardPS.getContent())
+        .user(boardPS.getUser())
+        .replyList(replyList)
+        .build();
+  }*/
+public Board showDetail(Long id) {
+  Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
+      ()-> new Exception400("id", "게시글 아이디를 찾을 수 없습니다")
+  );
+  // 1. Lazy Loading 하는 것 보다 join fetch 하는 것이 좋다.
+  // 2. 왜 Lazy를 쓰냐면, 쓸데 없는 조인 쿼리를 줄이기 위해서이다.
+  // 3. 사실 @ManyToOne은 Eager 전략을 쓰는 것이 좋다.
+  // boardPS.getUser().getUsername();
+  return boardPS;
+}
 
   @Transactional
   public void deleteContent(Long id, Long userId) {
@@ -109,5 +139,19 @@ public class BoardService {
     } catch (Exception e) {
       throw new RuntimeException("글쓰기 수정 실패 :" + e.getMessage());
     }
+  }
+
+  public Board showUpdateDetail(Long id ,Long userId) {
+    Board boardPS = boardRepository.findByIdFetchUser(id).orElseThrow(
+        ()-> new Exception400("id", "게시글 아이디를 찾을 수 없습니다")
+    );
+    if (boardPS.getUser().getId().longValue() != userId){
+      throw new Exception403("권한이 없습니다.");
+    }
+    // 1. Lazy Loading 하는 것 보다 join fetch 하는 것이 좋다.
+    // 2. 왜 Lazy를 쓰냐면, 쓸데 없는 조인 쿼리를 줄이기 위해서이다.
+    // 3. 사실 @ManyToOne은 Eager 전략을 쓰는 것이 좋다.
+    // boardPS.getUser().getUsername();
+    return boardPS;
   }
 }

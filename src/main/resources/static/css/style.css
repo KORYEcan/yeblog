@@ -9,3 +9,25 @@
     font-size: 9px;
     color: red;
 }
+
+/* SNS 공유 */
+.sns-go ul {
+    list-style-type: none;
+    margin: 40px 0 0 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.sns-go li {
+    float: left;
+    padding-right: 5px;
+}
+
+.sns-go img {
+    border-radius: 5px;
+    width: 35px;
+}
+
+.single .entry-content {
+    margin-top: 0.6em;
+}

@@ -1,7 +1,11 @@
 package shop.yeblog.dto;
 
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
+@Data
+@AllArgsConstructor
+@Builder
 public class ResponseDTO<T> {
   private Integer status;
   private String msg;
@@ -12,6 +16,8 @@ public class ResponseDTO<T> {
     this.msg="성공";
     this.data=null;
   }
+
+
 
   public ResponseDTO<?> data(T data){
     this.data= data;

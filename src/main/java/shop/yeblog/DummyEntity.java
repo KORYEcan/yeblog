@@ -2,7 +2,10 @@ package shop.yeblog;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import shop.yeblog.model.board.Board;
+import shop.yeblog.model.reply.Reply;
 import shop.yeblog.model.user.User;
+
+import java.util.List;
 
 public class DummyEntity {
 
